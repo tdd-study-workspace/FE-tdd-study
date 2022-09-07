@@ -1,7 +1,8 @@
 <template>
   <div>
-    <input id="user-name" type="text" placeholder="username" />
-    <label for="user-name">submit</label>
+    <input id="username" type="text" placeholder="username" />
+    <input id="email" type="text" placeholder="email" />
+    <input id="password" type="text" placeholder="password" />
   </div>
 </template>
 
