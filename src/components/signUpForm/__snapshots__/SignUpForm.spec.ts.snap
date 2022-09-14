@@ -1,0 +1,23 @@
+// Vitest Snapshot v1
+
+exports[`SignUpForm 테스트 > matches snapshot 1`] = `
+<div>
+  <div>
+    <input
+      id="username"
+      placeholder="username"
+      type="text"
+    />
+    <input
+      id="email"
+      placeholder="email"
+      type="text"
+    />
+    <input
+      id="password"
+      placeholder="password"
+      type="text"
+    />
+  </div>
+</div>
+`;
