@@ -1,34 +1,33 @@
-import { describe, it, expect, afterEach, beforeEach } from "vitest";
-import { cleanup, render, screen } from "@testing-library/vue";
-import SignUpForm from "./SignUpForm.vue";
-import { fireEvent } from "@testing-library/dom";
+import { describe, it, expect, afterEach, beforeEach } from 'vitest';
+import { cleanup, render, screen } from '@testing-library/vue';
+import SignUpForm from './SignUpForm.vue';
 
-describe("SignUpForm Input 값 없는 상태", () => {
-
-  // it('matches snapshot', () => {
-  //   expect(signUpForm.container).toMatchSnapshot();
-  // });
+describe('SignUpForm Input 값 없는 상태', () => {
   beforeEach(() => {
     render(SignUpForm);
   });
 
-  afterEach(() =>
-    cleanup()
-  );
+  afterEach(() => cleanup());
 
-  it("SignUpForm 렌더링 시 내부에 UserName INPUT이 표시되어야함", () => {
-    expect(screen.getByLabelText("username").tagName).toEqual("INPUT");
-    expect(screen.getByLabelText("username").getAttribute('type')).toEqual('text');
+  it('SignUpForm 렌더링 시 내부에 UserName INPUT이 표시되어야함', () => {
+    expect(screen.getByLabelText('username').tagName).toEqual('INPUT');
+    expect(screen.getByLabelText('username').getAttribute('type')).toEqual(
+      'text',
+    );
   });
 
-  it("SignUpForm 렌더링 시 내부에 Email INPUT이 표시되어야함", () => {
-    expect(screen.getByLabelText("email")).toBeTruthy();
-    expect(screen.getByLabelText("email").getAttribute('type')).toEqual('email');
+  it('SignUpForm 렌더링 시 내부에 Email INPUT이 표시되어야함', () => {
+    expect(screen.getByLabelText('email')).toBeTruthy();
+    expect(screen.getByLabelText('email').getAttribute('type')).toEqual(
+      'email',
+    );
   });
 
-  it("SignUpForm 렌더링 시 내부에 Pass INPUT이 표시되어야함", () => {
-    expect(screen.getByLabelText("password")).toBeTruthy();
-    expect(screen.getByLabelText("password").getAttribute('type')).toEqual('password');
+  it('SignUpForm 렌더링 시 내부에 Pass INPUT이 표시되어야함', () => {
+    expect(screen.getByLabelText('password')).toBeTruthy();
+    expect(screen.getByLabelText('password').getAttribute('type')).toEqual(
+      'password',
+    );
   });
 
   it('SignUpForm 의 모든 입력 필드 값이 채워지지 않으면 Sign Up 버튼이 비활성화 된다.', () => {
@@ -36,11 +35,30 @@ describe("SignUpForm Input 값 없는 상태", () => {
   });
 
   it('SignUpForm 렌더링 시 Sign Up Button이 포함되어있다.', () => {
-    expect(screen.getByText("Sign Up").tagName).toEqual('BUTTON');
+    expect(screen.getByText('Sign Up').tagName).toEqual('BUTTON');
   });
 
   it('Sign Up Form의 Email 은 Validation이 수행되지 않아야 한다.', () => {
     const emailInput = screen.getByLabelText('email');
     expect(emailInput.innerHTML.length === 0).toBeTruthy();
   });
+});
+
+describe('S-01', () => {
+  // beforeEach(() => {
+  //   const wrapper = mount(SignUpForm, {
+  //     data() {
+  //       return {
+  //         responseCode: 422
+  //       }
+  //     }
+  //   });
+  // });
+
+  afterEach(() => cleanup());
+  //   it('S-01-01', async () => {
+  //     const wrapper = shallowMount(SignUpForm);
+  //     await wrapper.vm.responseCode = 422;
+  //     expect(screen.getByText('error')).toBeTruthy();
+  //   })
 });
