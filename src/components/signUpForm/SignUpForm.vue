@@ -1,8 +1,24 @@
 <template>
   <form @submit.prevent="signUp">
-    <input aria-label="username" type="text" placeholder="username" v-model="form.username" />
-    <input aria-label="email" type="email" placeholder="email" v-model="form.email" />
-    <input aria-label="password" type="password" placeholder="password" v-model="form.password" />
+    <span v-if="responseCode === 422">error</span>
+    <input
+      v-model="form.username"
+      aria-label="username"
+      type="text"
+      placeholder="username"
+    />
+    <input
+      v-model="form.email"
+      aria-label="email"
+      type="email"
+      placeholder="email"
+    />
+    <input
+      v-model="form.password"
+      aria-label="password"
+      type="password"
+      placeholder="password"
+    />
     <button :disabled="buttonDisabled">Sign Up</button>
   </form>
 </template>
@@ -10,7 +26,8 @@
 <script setup lang="ts">
 import { computed, reactive } from 'vue';
 
- const form = reactive({
+const responseCode = 0;
+const form = reactive({
   username: '',
   email: '',
   password: '',
@@ -22,10 +39,7 @@ const buttonDisabled = computed(() => {
 
 const signUp = () => {
   // TODO: SignUp 로직
-}
-
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
