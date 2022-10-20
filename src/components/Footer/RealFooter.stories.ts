@@ -11,7 +11,7 @@ const Template: StoryFn<typeof RealFooter> = args => ({
   setup() {
     return { args };
   },
-  template: '<real-footer />',
+  template: '<real-footer v-bind="args"/>',
 });
 
 export const Default = Template.bind({});
