@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router';
-import HelloWorld from './components/HelloWorld.vue';
+import useCreateUser from './hooks/mutations/useCreateUser';
+
+const { data } = useCreateUser();
 </script>
 
 <template>
@@ -14,8 +16,9 @@ import HelloWorld from './components/HelloWorld.vue';
     />
 
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
+      <div class="TMP">
+        {{ data }}
+      </div>
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
