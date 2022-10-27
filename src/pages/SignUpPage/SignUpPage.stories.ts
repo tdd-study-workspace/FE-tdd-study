@@ -2,7 +2,7 @@ import type { Meta, StoryFn } from '@storybook/vue3';
 import SignUpPage from './SignUpPage.vue';
 import { rest } from 'msw';
 import { baseurl } from '@/service/api';
-import { screen, userEvent } from '@storybook/testing-library';
+import { userEvent, within } from '@storybook/testing-library';
 
 export default {
   title: 'Page/SignUpPage',
@@ -35,7 +35,61 @@ WithDuplicatedEmail.parameters = {
   },
 };
 
-WithDuplicatedEmail.play = async () => {
-  const Submit = screen.getByText('Sign up');
-  await userEvent.click(Submit);
+WithDuplicatedEmail.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  const userNameInput = await canvas.getByPlaceholderText(/Your Name/i);
+  await userEvent.type(userNameInput, 'hyunja', { delay: 10 });
+  const emailInput = await canvas.getByPlaceholderText(/Email/i);
+  await userEvent.type(emailInput, 'hyunja@ex-em.com', { delay: 10 });
+  const passwordInput = await canvas.getByPlaceholderText(/Password/i);
+  await userEvent.type(passwordInput, 'adsADS@@12', { delay: 10 });
+
+  const signUpButton = await canvas.getByRole('button', { name: /Sign up/i });
+  await userEvent.click(signUpButton);
+};
+
+export const WithInvalidEmail = Template.bind({});
+WithInvalidEmail.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  const userNameInput = await canvas.getByPlaceholderText(/Your Name/i);
+  await userEvent.type(userNameInput, 'hyunja', { delay: 10 });
+  const emailInput = await canvas.getByPlaceholderText(/Email/i);
+  await userEvent.type(emailInput, 'dkkldfslkdfn', { delay: 10 });
+  const passwordInput = await canvas.getByPlaceholderText(/Password/i);
+  await userEvent.type(passwordInput, 'adsADS@@12', { delay: 10 });
+
+  const signUpButton = await canvas.getByRole('button', { name: /Sign up/i });
+  await userEvent.click(signUpButton);
+};
+
+export const WithInvalidPassword = Template.bind({});
+WithInvalidPassword.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  const userNameInput = await canvas.getByPlaceholderText(/Your Name/i);
+  await userEvent.type(userNameInput, 'hyunja', { delay: 10 });
+  const emailInput = await canvas.getByPlaceholderText(/Email/i);
+  await userEvent.type(emailInput, 'hyunja@ex-em.com', { delay: 10 });
+  const passwordInput = await canvas.getByPlaceholderText(/Password/i);
+  await userEvent.type(passwordInput, 'invalid-password', { delay: 10 });
+
+  const signUpButton = await canvas.getByRole('button', { name: /Sign up/i });
+  await userEvent.click(signUpButton);
+};
+
+export const WithInvalidUserName = Template.bind({});
+WithInvalidUserName.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  const userNameInput = await canvas.getByPlaceholderText(/Your Name/i);
+  await userEvent.type(userNameInput, '안녕ㅎㅎ ㅎ ', { delay: 10 });
+  const emailInput = await canvas.getByPlaceholderText(/Email/i);
+  await userEvent.type(emailInput, 'hyunja@ex-em.com', { delay: 10 });
+  const passwordInput = await canvas.getByPlaceholderText(/Password/i);
+  await userEvent.type(passwordInput, 'adsADS@@12', { delay: 10 });
+
+  const signUpButton = await canvas.getByRole('button', { name: /Sign up/i });
+  await userEvent.click(signUpButton);
 };

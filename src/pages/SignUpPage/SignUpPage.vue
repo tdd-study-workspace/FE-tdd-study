@@ -10,11 +10,15 @@
 
           <ul class="error-messages">
             <li v-if="isEmailExist">That email is already taken</li>
+            <li v-if="isInvalidEmail">Email Format is not correct</li>
+            <li v-if="isInvalidPassword">Password Format is not correct</li>
+            <li v-if="isInvalidUserName">UserName Format is not correct</li>
           </ul>
 
           <form>
             <fieldset class="form-group">
               <input
+                v-model="form.username"
                 class="form-control form-control-lg"
                 type="text"
                 placeholder="Your Name"
@@ -22,6 +26,7 @@
             </fieldset>
             <fieldset class="form-group">
               <input
+                v-model="form.email"
                 class="form-control form-control-lg"
                 type="text"
                 placeholder="Email"
@@ -29,6 +34,7 @@
             </fieldset>
             <fieldset class="form-group">
               <input
+                v-model="form.password"
                 class="form-control form-control-lg"
                 type="password"
                 placeholder="Password"
@@ -40,9 +46,6 @@
             >
               Sign up
             </button>
-            <div class="tmp">
-              {{ data }}
-            </div>
           </form>
         </div>
       </div>
@@ -55,10 +58,24 @@ import useCreateUser from '@/hooks/mutations/useCreateUser';
 import type { AxiosError } from 'axios';
 import { ref } from 'vue';
 import type { CreateUserErrorResponseBody } from '@/service/models';
+import {
+  isValidEmail,
+  isValidPassword,
+  isValidUserName,
+} from '@/utils/validator';
 
 const { mutate, isError } = useCreateUser();
 
 const isEmailExist = ref(false);
+const isInvalidEmail = ref(false);
+const isInvalidPassword = ref(false);
+const isInvalidUserName = ref(false);
+
+const form = ref({
+  username: '',
+  email: '',
+  password: '',
+});
 
 const createUserDto = {
   user: {
@@ -68,7 +85,36 @@ const createUserDto = {
   },
 };
 
+const formValidator = () => {
+  isEmailExist.value = false;
+  isInvalidEmail.value = false;
+  isInvalidPassword.value = false;
+  isInvalidUserName.value = false;
+
+  console.log('->', form.value);
+
+  if (!isValidEmail(form.value.email)) {
+    isInvalidEmail.value = true;
+  }
+
+  if (!isValidPassword(form.value.password)) {
+    isInvalidPassword.value = true;
+  }
+
+  if (!isValidUserName(form.value.username)) {
+    isInvalidUserName.value = true;
+  }
+};
+
 const onSubmit = async () => {
+  formValidator();
+  if (
+    isInvalidEmail.value ||
+    isInvalidPassword.value ||
+    isInvalidUserName.value
+  ) {
+    return;
+  }
   mutate(createUserDto, {
     onError: error => {
       const res = (error as AxiosError).response;
