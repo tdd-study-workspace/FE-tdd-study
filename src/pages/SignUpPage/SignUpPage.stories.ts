@@ -2,6 +2,7 @@ import type { Meta, StoryFn } from '@storybook/vue3';
 import SignUpPage from './SignUpPage.vue';
 import { rest } from 'msw';
 import { baseurl } from '@/service/api';
+import { screen, userEvent } from '@storybook/testing-library';
 
 export default {
   title: 'Page/SignUpPage',
@@ -25,11 +26,16 @@ WithDuplicatedEmail.parameters = {
           ctx.status(422),
           ctx.json({
             errors: {
-              email: ['has already been taken?????'],
+              email: ['has already been taken'],
             },
           }),
         );
       }),
     ],
   },
+};
+
+WithDuplicatedEmail.play = async () => {
+  const Submit = screen.getByText('Sign up');
+  await userEvent.click(Submit);
 };

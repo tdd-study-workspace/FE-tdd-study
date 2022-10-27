@@ -5,3 +5,10 @@ export interface CreateUserDto {
     password: string;
   };
 }
+
+export interface CreateUserErrorResponseBody {
+  errors: {
+    email?: string[];
+    username?: string[];
+  };
+}

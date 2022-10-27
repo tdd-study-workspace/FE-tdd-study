@@ -52,13 +52,15 @@
 
 <script setup lang="ts">
 import useCreateUser from '@/hooks/mutations/useCreateUser';
+import type { AxiosError } from 'axios';
 import { ref } from 'vue';
+import type { CreateUserErrorResponseBody } from '@/service/models';
+
+const { mutate, isError } = useCreateUser();
 
 const isEmailExist = ref(false);
 
-const { mutate, error } = useCreateUser();
-
-const data = {
+const createUserDto = {
   user: {
     username: 'test',
     email: 'asdjkasjkd',
@@ -67,8 +69,23 @@ const data = {
 };
 
 const onSubmit = async () => {
-  mutate(data);
-  console.log(error);
+  mutate(createUserDto, {
+    onError: error => {
+      const res = (error as AxiosError).response;
+      console.log('STATUS', res?.status);
+      console.log('DATA', res?.data);
+      if (res?.status === 422) {
+        const resData = res?.data as CreateUserErrorResponseBody;
+        if (
+          resData.errors.email &&
+          resData.errors.email[0] === 'has already been taken'
+        ) {
+          isEmailExist.value = true;
+        }
+        // TODO : username 에러 로직 추가
+      }
+    },
+  });
 };
 </script>
 
