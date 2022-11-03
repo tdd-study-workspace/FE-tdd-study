@@ -1273,7 +1273,7 @@
     "@devtools-ds/themes" "^1.2.0"
     clsx "1.1.0"
 
-"@discoveryjs/json-ext@^0.5.3":
+"@discoveryjs/json-ext@^0.5.3", "@discoveryjs/json-ext@^0.5.7":
   version "0.5.7"
   resolved "https://registry.npmjs.org/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
@@ -4009,7 +4009,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/webpack-env@^1.16.0", "@types/webpack-env@^1.16.4":
+"@types/webpack-env@^1.16.0", "@types/webpack-env@^1.16.4", "@types/webpack-env@^1.17.0":
   version "1.18.0"
   resolved "https://registry.npmjs.org/@types/webpack-env/-/webpack-env-1.18.0.tgz"
   integrity sha512-56/MAlX5WMsPVbOg7tAxnYvNYMMWr/QJiIp6BxVSW3JJXUVzzOn64qW8TzQyMSqSUFM2+PVI4aUHcHOzIz/1tg==
@@ -6028,6 +6028,14 @@ chownr@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/chownr/-/chownr-2.0.0.tgz"
   integrity sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ==
+
+chromatic@^6.11.4:
+  version "6.11.4"
+  resolved "https://registry.yarnpkg.com/chromatic/-/chromatic-6.11.4.tgz#1bb72bceb8f4455694e9e27db86c585e8b7cb7cd"
+  integrity sha512-f1TcuIXKjGUuOjPuwFF44kzbuEcESFcDxHzrzWPLmHuC90dV8HLxbufqYaTOBYMO/rJ32Zftb7S9pXuF/Rhfog==
+  dependencies:
+    "@discoveryjs/json-ext" "^0.5.7"
+    "@types/webpack-env" "^1.17.0"
 
 chrome-trace-event@^1.0.2:
   version "1.0.3"
