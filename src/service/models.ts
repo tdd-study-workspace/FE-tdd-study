@@ -12,3 +12,10 @@ export interface CreateUserErrorResponseBody {
     username?: string[];
   };
 }
+
+export interface LoginUserDto {
+  user: {
+    email: string;
+    password: string;
+  }
+}
