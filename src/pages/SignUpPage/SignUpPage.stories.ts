@@ -36,7 +36,7 @@ WithDuplicatedEmail.parameters = {
   },
 };
 
-WithDuplicatedEmail.play = async ({ args, canvasElement }) => {
+WithDuplicatedEmail.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
   const userNameInput = canvas.getByPlaceholderText(/Your Name/i);
@@ -48,8 +48,9 @@ WithDuplicatedEmail.play = async ({ args, canvasElement }) => {
   const signUpButton = canvas.getByRole('button', { name: /Sign up/i });
   await userEvent.click(signUpButton);
   await waitFor(() =>
-    expect(canvas.getByText('That email is already taken')).toBeTruthy(),
+    expect(canvas.getByText('That email is already taken')).toBeDefined(),
   );
+  await expect(canvas.getByText('That email is already taken')).toBeTruthy();
 };
 
 export const WithInvalidEmail = Template.bind({});
@@ -65,6 +66,10 @@ WithInvalidEmail.play = async ({ canvasElement }) => {
 
   const signUpButton = await canvas.getByRole('button', { name: /Sign up/i });
   await userEvent.click(signUpButton);
+  await waitFor(async () => {
+    await expect(canvas.getByText('Email Format is not correct')).toBeDefined();
+  });
+  await expect(canvas.getByText('Email Format is not correct')).toBeDefined();
 };
 
 export const WithInvalidPassword = Template.bind({});
@@ -80,6 +85,14 @@ WithInvalidPassword.play = async ({ canvasElement }) => {
 
   const signUpButton = await canvas.getByRole('button', { name: /Sign up/i });
   await userEvent.click(signUpButton);
+  await waitFor(async () => {
+    await expect(
+      canvas.getByText('Password Format is not correct'),
+    ).toBeDefined();
+  });
+  await expect(
+    canvas.getByText('Password Format is not correct'),
+  ).toBeDefined();
 };
 
 export const WithInvalidUserName = Template.bind({});
@@ -95,4 +108,13 @@ WithInvalidUserName.play = async ({ canvasElement }) => {
 
   const signUpButton = await canvas.getByRole('button', { name: /Sign up/i });
   await userEvent.click(signUpButton);
+
+  await waitFor(async () => {
+    await expect(
+      canvas.getByText('UserName Format is not correct'),
+    ).toBeDefined();
+  });
+  await expect(
+    canvas.getByText('UserName Format is not correct'),
+  ).toBeDefined();
 };
