@@ -9,7 +9,9 @@
           </p>
 
           <ul class="error-messages">
-            <li v-if="isEmailExist">That email is already taken</li>
+            <li v-if="isEmailExist" id="duplicated-email">
+              That email is already taken
+            </li>
             <li v-if="isInvalidEmail">Email Format is not correct</li>
             <li v-if="isInvalidPassword">Password Format is not correct</li>
             <li v-if="isInvalidUserName">UserName Format is not correct</li>

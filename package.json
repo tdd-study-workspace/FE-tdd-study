@@ -12,7 +12,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier . --write",
     "storybook": "start-storybook -p 6006 -s public",
-    "test-storybook": "test-storybook",
+    "test-storybook": "test-storybook --watch",
     "build-storybook": "build-storybook"
   },
   "dependencies": {

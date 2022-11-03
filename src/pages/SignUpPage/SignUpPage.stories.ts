@@ -2,7 +2,8 @@ import type { Meta, StoryFn } from '@storybook/vue3';
 import SignUpPage from './SignUpPage.vue';
 import { rest } from 'msw';
 import { baseurl } from '@/service/api';
-import { userEvent, within } from '@storybook/testing-library';
+import { userEvent, within, waitFor } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
 
 export default {
   title: 'Page/SignUpPage',
@@ -35,18 +36,20 @@ WithDuplicatedEmail.parameters = {
   },
 };
 
-WithDuplicatedEmail.play = async ({ canvasElement }) => {
+WithDuplicatedEmail.play = async ({ args, canvasElement }) => {
   const canvas = within(canvasElement);
 
-  const userNameInput = await canvas.getByPlaceholderText(/Your Name/i);
+  const userNameInput = canvas.getByPlaceholderText(/Your Name/i);
   await userEvent.type(userNameInput, 'hyunja', { delay: 10 });
-  const emailInput = await canvas.getByPlaceholderText(/Email/i);
+  const emailInput = canvas.getByPlaceholderText(/Email/i);
   await userEvent.type(emailInput, 'hyunja@ex-em.com', { delay: 10 });
-  const passwordInput = await canvas.getByPlaceholderText(/Password/i);
+  const passwordInput = canvas.getByPlaceholderText(/Password/i);
   await userEvent.type(passwordInput, 'adsADS@@12', { delay: 10 });
-
-  const signUpButton = await canvas.getByRole('button', { name: /Sign up/i });
+  const signUpButton = canvas.getByRole('button', { name: /Sign up/i });
   await userEvent.click(signUpButton);
+  await waitFor(() =>
+    expect(canvas.getByText('That email is already taken')).toBeTruthy(),
+  );
 };
 
 export const WithInvalidEmail = Template.bind({});
