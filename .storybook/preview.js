@@ -3,7 +3,9 @@ import { VueQueryPlugin } from '@tanstack/vue-query';
 import { withSource } from './withSource';
 import { initialize, mswDecorator } from 'msw-storybook-addon';
 
-initialize();
+initialize({
+  onUnhandledRequest: 'bypass',
+});
 
 app.use(VueQueryPlugin);
 export const parameters = {
